@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Modelon | 3D Tasarım & İmalat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --primary: #22c55e;
+      --secondary: #0ea5e9;
+      --dark: #0f172a;
+      --bg: #f3f4f6;
+      --grad: linear-gradient(135deg, #22c55e, #0ea5e9);
+    }
+
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; -webkit-tap-highlight-color: transparent; }
+    body { margin: 0; background: var(--bg); color: var(--dark); overflow-x: hidden; }
+
+    /* RENKLİ HEADER */
+    header { 
+      background: #fff; padding: 15px 20px; position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-bottom: 3px solid var(--primary);
+    }
+    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 15px; }
+    .logo-box { 
+      width: 45px; height: 45px; background: var(--grad); border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-weight: 900; font-size: 24px; box-shadow: 0 4px 10px rgba(34,197,94,0.3);
+    }
+    .logo-text { font-weight: 800; font-size: 22px; letter-spacing: 1px; color: var(--dark); }
+
+    /* CANLI HERO BÖLÜMÜ */
+    .hero { 
+      text-align: center; padding: 60px 20px; 
+      background: #fff; background-image: radial-gradient(circle at top right, #dcfce7, #fff, #e0f2fe);
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .hero h1 { margin: 0; font-size: 36px; font-weight: 800; }
+    .hero h1 span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { color: #64748b; max-width: 650px; margin: 15px auto 0; font-size: 17px; font-weight: 500; }
+
+    /* KATEGORİ SEKMELERİ */
+    .category-tabs {
+      max-width: 1200px; margin: 25px auto 10px; padding: 0 15px;
+      display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none;
+    }
+    .category-tabs::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      padding: 12px 25px; border-radius: 50px; border: 2px solid white;
+      background: white; color: #64748b; font-weight: 700; cursor: pointer;
+      transition: all 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.05); white-space: nowrap;
+    }
+    .tab-btn.active {
+      background: var(--dark); color: white; border-color: var(--dark);
+      transform: translateY(-3px); box-shadow: 0 8px 15px rgba(15,23,42,0.25);
+    }
+
+    /* ÜRÜN KARTLARI */
+    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; padding: 20px; max-width: 1200px; margin: 0 auto; }
+    @media (min-width: 768px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+    
+    .card { 
+      background: white; border-radius: 25px; overflow: hidden; cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 1px solid rgba(255,255,255,0.8); box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    }
+    .card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.12); }
+    .card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; background: #f8fafc; }
+    .card-body { padding: 15px; border-top: 1px solid #f1f5f9; }
+    .card-cat { font-size: 11px; font-weight: 800; color: var(--secondary); text-transform: uppercase; margin-bottom: 5px; }
+    .card-title { font-size: 16px; font-weight: 700; color: var(--dark); margin: 0; }
+
+    /* DETAY SAYFASI */
+    #detailPage { position: fixed; inset: 0; background: white; z-index: 200; display: none; flex-direction: column; overflow-y: auto; }
+    .det-nav { padding: 15px; border-bottom: 1px solid #f1f5f9; display: flex; align-items: center; position: sticky; top: 0; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); }
+    .close-btn { border: none; background: #f1f5f9; width: 45px; height: 45px; border-radius: 50%; font-size: 22px; cursor: pointer; }
+    .det-body { padding: 25px; max-width: 800px; margin: 0 auto; width: 100%; }
+    .det-img { width: 100%; border-radius: 20px; margin-bottom: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+    
+    .order-footer { position: sticky; bottom: 0; background: white; padding: 20px; border-top: 1px solid #f1f5f9; }
+    .btn-wa { 
+      background: #22c55e; color: white; text-decoration: none; display: flex; align-items: center; 
+      justify-content: center; gap: 12px; padding: 18px; border-radius: 18px; font-weight: 800; font-size: 17px;
+      box-shadow: 0 10px 20px rgba(34,197,94,0.4); transition: transform 0.2s;
+    }
+    .btn-wa:active { transform: scale(0.96); }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="nav-inner">
+    <div class="logo-box">M</div>
+    <div class="logo-text">MODELON</div>
+  </div>
+</header>
+
+<section class="hero">
+  <h1><span>3D Tasarım</span> & Profesyonel Üretim</h1>
+  <p>En son teknoloji 3D yazıcılarla anahtarlıktan araç parçasına kadar her türlü fikrinizi yüksek kalitede gerçeğe dönüştürüyoruz.</p>
+</section>
+
+<div class="category-tabs">
+  <button class="tab-btn active" onclick="filterData('Tümü', this)">Tümü</button>
+  <button class="tab-btn" onclick="filterData('Anahtarlık', this)">Anahtarlıklar</button>
+  <button class="tab-btn" onclick="filterData('Organizer', this)">Organizerler</button>
+  <button class="tab-btn" onclick="filterData('Araç Parçası', this)">Araç Parçaları</button>
+</div>
+
+<main class="grid" id="productGrid"></main>
+
+<div id="detailPage">
+  <div class="det-nav">
+    <button class="close-btn" onclick="closeDetail()">✕</button>
+    <div id="detCategory" style="margin-left:20px; font-weight:800; color:var(--secondary); font-size:13px; text-transform:uppercase;">DETAY</div>
+  </div>
+  <div class="det-body">
+    <h2 id="detTitle" style="font-size: 28px; margin-bottom: 10px;"></h2>
+    <p id="detDescription" style="color: #64748b; font-size: 16px; margin-bottom: 30px;"></p>
+    <div id="detGallery"></div>
+  </div>
+  <div class="order-footer">
+    <a id="detWaLink" href="#" target="_blank" class="btn-wa">WhatsApp'tan Fiyat Al</a>
+  </div>
+</div>
+
+<script>
+const products = [
+  { id: "ayi_762", name: "Ayı - Hareketli Flexi Model", category: "Anahtarlık", cover: "Ayì 1.webp", desc: "Tamamen hareketli eklemler, dayanıklı yapı ve estetik görünüm.", images: ["Ayì 1.webp", "Ayì 2.webp"] },
+  { id: "balik_912", name: "Balık - Esnek Gövde", category: "Anahtarlık", cover: "Balìk 1.webp", desc: "Gerçekçi yüzme hareketi sunan esnek tasarım.", images: ["Balìk 1.webp", "Balìk 2.webp"] },
+  { id: "papagan_334", name: "Papağan - Hareketli Kanat", category: "Anahtarlık", cover: "Papaºan.png", desc: "Kanatları hareket edebilen renkli papağan modeli.", images: ["Papaºan.png", "Papaºan gif 1.gif", "Papaºan gif 2.gif"] },
+  { id: "kedi_taki_456", name: "Kedi Takı Organizeri", category: "Organizer", cover: "Kedi Taki Organizeri 1.png", desc: "Takılarınız için şık ve eğlenceli düzenleyici.", images: ["Kedi Taki Organizeri 1.png", "Kedi Taki Organizeri 2.png", "Kedi Taki Organizeri 3.png"] },
+  { id: "taki_organizeri_887", name: "Çok Gözlü Takı Organizeri", category: "Organizer", cover: "Taki Organizeri 1.jpg", desc: "Fonksiyonel bölmelerle masaüstü düzeni sağlar.", images: ["Taki Organizeri 1.jpg", "Taki Organizeri 2.jpg", "Taki Organizeri gif.png"] },
+  { id: "ahtapot_442", name: "Ahtapot - Hareketli Kollar", category: "Anahtarlık", cover: "Ahtapot 1.jpeg", desc: "Stres giderici, hareketli kollara sahip ahtapot figürü.", images: ["Ahtapot 1.jpeg", "Ahtapot 2.jpeg"] },
+  { id: "axolotl_109", name: "Axolotl - Flexi Seri", category: "Anahtarlık", cover: "Axolotl.jpg", desc: "Sevilen Axolotl figürünün hareketli versiyonu.", images: ["Axolotl.jpg", "Axolotl gif 1.gif"] },
+  { id: "hipopotam_221", name: "Hipopotam - Esnek Model", category: "Anahtarlık", cover: "Hipopotam.jpg", desc: "Esnek gövdeli dayanıklı hipopotam modeli.", images: ["Hipopotam.jpg", "Hipopotam gif 1.gif"] },
+  { id: "kanguru_554", name: "Kanguru - Flexi Tasarım", category: "Anahtarlık", cover: "Kanguru 1.webp", desc: "Kanguru formunda hareketli anahtarlık tasarımı.", images: ["Kanguru 1.webp"] },
+  { id: "miknatisli_su_samuru_990", name: "Mıknatıslı Su Samuru", category: "Anahtarlık", cover: "Mìknatìslu Su Smuru gif 1.gif", desc: "Hem esnek hem mıknatıslı özel tasarım.", images: ["Mìknatìslu Su Smuru gif 1.gif", "Mìknatìslu Su Smuru gif 2.gif"] },
+  { id: "rakun_771", name: "Rakun - Esnek Seri", category: "Anahtarlık", cover: "Rakun.jpg", desc: "Esnek ve detaylı rakun figürü.", images: ["Rakun.jpg", "Rakun 2.jpg", "Rakun gif 1.gif"] },
+  { id: "susamuru_332", name: "Su Samuru - Standart Seri", category: "Anahtarlık", cover: "Su Samuru.jpg", desc: "Su samuru formunda esnek anahtarlık.", images: ["Su Samuru.jpg", "Su Samuru gif.gif"] },
+  { id: "tavsan_119", name: "Tavşan - Flexi Model", category: "Anahtarlık", cover: "Tavƒan.png", desc: "Uzun kulaklı ve hareketli tavşan tasarımı.", images: ["Tavƒan.png", "Tavƒan gif 1.gif", "Tavƒan gif 2.gif"] },
+  { id: "tembel_hayvan_667", name: "Tembel Hayvan - Sallanır Seri", category: "Anahtarlık", cover: "Tembel Hayvan 1.jpg", desc: "Tembel hayvan karakterine uygun esnek yapı.", images: ["Tembel Hayvan 1.jpg", "Tembel Hayvan Gif 1.gif"] },
+  { id: "tilki_228", name: "Tilki - Esnek Tasarım", category: "Anahtarlık", cover: "Tilki.jpg", desc: "Estetik ve hareketli tilki figürü.", images: ["Tilki.jpg", "Tilki 1.jpg", "Tilki gif 1.gif"] },
+  { id: "zurafa_991", name: "Zürafa - Uzun Segment", category: "Anahtarlık", cover: "Zürafa 1.jpg", desc: "Uzun segmentli ve hareketli zürafa tasarımı.", images: ["Zürafa 1.jpg", "Zürafa 2.jpg", "Zürafa gif 1.gif"] },
+  { id: "ordek_445", name: "Ördek - Flexi Anahtarlık", category: "Anahtarlık", cover: "Ördek 1.jpg", desc: "Eğlenceli ve esnek ördek anahtarlık.", images: ["Ördek 1.jpg", "Ördek 2.jpg", "Ördek Gif 1.gif"] }
+];
+
+function displayProducts(items) {
+  const grid = document.getElementById('productGrid');
+  grid.innerHTML = items.map(p => `
+    <div class="card" onclick="openDetail('${p.id}')">
+      <img src="${p.cover}" loading="lazy">
+      <div class="card-body">
+        <div class="card-cat">${p.category}</div>
+        <p class="card-title">${p.name}</p>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterData(cat, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const filtered = cat === 'Tümü' ? products : products.filter(p => p.category === cat);
+  displayProducts(filtered);
+}
+
+function openDetail(id) {
+  const p = products.find(x => x.id === id);
+  document.getElementById('detTitle').textContent = p.name;
+  document.getElementById('detCategory').textContent = p.category;
+  document.getElementById('detDescription').textContent = p.desc;
+  document.getElementById('detGallery').innerHTML = p.images.map(img => `<img src="${img}" class="det-img" loading="lazy">`).join('');
+  document.getElementById('detWaLink').href = `https://wa.me/905445509342?text=` + encodeURIComponent(`Merhaba, "${p.name}" hakkında fiyat almak istiyorum.`);
+  document.getElementById('detailPage').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDetail() {
+  document.getElementById('detailPage').style.display = 'none';
+  document.body.style.overflow = 'auto';
+}
+
+displayProducts(products);
+</script>
+</body>
+</html>
